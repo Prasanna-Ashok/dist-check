@@ -24,12 +24,18 @@ class Distributor
 	 		x=self.get_inc.split(/\n/)
 	 		x.each do |i|
 	 			flag=self.inc_check(i,parent.get_inc,parent.get_exc)
-	 			puts flag
+	 			if(flag==false)
+	 				puts "Invalid entry"
+	 				break
+	 			end
 	 		end	
 			y=self.get_exc.split(/\n/)
 			y.each do |j|
 				flag=self.inc_check(j,parent.get_inc,parent.get_exc)
-				puts flag
+				if(flag==false)
+					puts "Invalid entry"
+					break
+				end
 			end	
 		end
 	end
@@ -64,7 +70,7 @@ class Distributor
 			reg_inc=city_convert(i)
 			if(check_area(reg_inc))
 			else
-				puts "Invalid"
+				puts "Invalid entry"
 			end
 		end
 		ex_arr=self.get_exc.split(/\n/)
@@ -104,7 +110,11 @@ class Distributor
 	end	
 def inc_check(reg,par_inc,par_exc)
 	i=city_convert(reg)
-	flag=true if(par_inc.include?(i[:country].to_s))
+	if(par_inc.include?(i[:country].to_s))
+		flag=true
+	else
+		flag=false
+	end 
 	if(i[:state]!=nil)
 			flag=false if(par_exc.include?(i[:state].to_s))
 	end
